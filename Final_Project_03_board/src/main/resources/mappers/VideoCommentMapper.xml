@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.ssafit.model.dao.VideoCommentDao">
+
+	<select id="selectVideoComment" parameterType="String" resultType="VideoComment">
+		select videoComment.*,user.user_nickname from `videoComment`,`user` where videocomment_video_id = #{video_id} and videoComment.videocomment_writer_id = user.user_id
+	</select>
+	
+	<insert id="registVideoComment" parameterType="VideoComment">
+		insert into videoComment (videocomment_content,videocomment_writer_id,videocomment_video_id,videocomment_created_at)
+		values
+		(#{videocomment_content},${videocomment_writer_id},${videocomment_video_id},now())
+	</insert>
+	
+	<update id="updateVideoComment" parameterType="VideoComment">
+		UPDATE videoComment set videocomment_content = #{videocomment_content} ,videocomment_modified_at = now()  where videocomment_num =${videocomment_num} 
+	</update>
+	
+	<delete id="deleteVideoComment" parameterType="int">
+		delete from videoComment where videocomment_num = ${videocomment_num}
+	</delete>
+	
+</mapper>
