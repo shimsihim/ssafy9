@@ -67,12 +67,12 @@ export default {
       if (to.path !== form.path) this.change(this.$route.params.board_id);
     },
   },
-  // created() {
-  //   const pathName = new URL(document.location).pathname.split("/");
-  //   console.log(pathName);
-  //   const post_board_id = pathName[pathName.length - 1];
-  //   this.$store.dispatch("setPosts",post_board_id);
-  // },
+  created() {
+    const pathName = new URL(document.location).pathname.split("/");
+    console.log(pathName);
+    const post_board_id = pathName[pathName.length - 1];
+    this.$store.dispatch("setPosts",post_board_id);
+  },
 };
 </script>
 
