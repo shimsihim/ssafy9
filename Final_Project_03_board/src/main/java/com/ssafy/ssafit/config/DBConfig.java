@@ -17,7 +17,7 @@ public class DBConfig {
 	public DataSource datasource() {
 		return DataSourceBuilder.create().driverClassName("com.mysql.cj.jdbc.Driver")
 				.url("jdbc:mysql://localhost:3306/ssafit_final?serverTimezone=UTC").username("root").password("ssafy")
-				.build();
+				.build(); 
 	}
 	
 

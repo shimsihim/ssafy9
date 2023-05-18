@@ -8,7 +8,6 @@ public class User {
 	private String user_pw;
 	private String user_name;
 	private String user_email;
-	private String user_phone;
 	@ApiModelProperty(hidden = true)
 	private String user_imgFolder;
 	@ApiModelProperty(hidden = true)
@@ -34,7 +33,6 @@ public class User {
 		this.user_pw = user_pw;
 		this.user_name = user_name;
 		this.user_email = user_email;
-		this.user_phone = user_phone;
 		this.user_imgFolder = user_imgFolder;
 		this.user_imgFile = user_imgFile;
 		this.user_nickname = user_nickname;
@@ -77,13 +75,7 @@ public class User {
 		this.user_email = user_email;
 	}
 
-	public String getUser_phone() {
-		return user_phone;
-	}
 
-	public void setUser_phone(String user_phone) {
-		this.user_phone = user_phone;
-	}
 
 	public String getUser_imgFolder() {
 		return user_imgFolder;
@@ -152,7 +144,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [user_id=" + user_id + ", user_pw=" + user_pw + ", user_name=" + user_name + ", user_email="
-				+ user_email + ", user_phone=" + user_phone + ", user_imgFolder=" + user_imgFolder + ", user_imgFile="
+				+ user_email + ", user_imgFolder=" + user_imgFolder + ", user_imgFile="
 				+ user_imgFile + ", user_nickname=" + user_nickname + ", user_height=" + user_height + ", user_weight="
 				+ user_weight + ", user_point=" + user_point + ", user_created_at=" + user_created_at
 				+ ", user_deleted_at=" + user_deleted_at + "]";

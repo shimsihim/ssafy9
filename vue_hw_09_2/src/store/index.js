@@ -17,6 +17,7 @@ export default new Vuex.Store({
     videos:[],
     video: {},
     video_comment: [],
+    idChk : "",
   },
   getters: {
     userCnt: function (state) {
@@ -160,6 +161,25 @@ export default new Vuex.Store({
           console.log(err);
         });
       },
+
+
+      selectId:  function ({state},user_id) {
+        console.log(user_id)
+      const API_URL = `http://localhost:9999/ssafit/user/idCheck/${user_id}`;
+       axios({
+        url: API_URL,
+        method: "GET",
+      })
+      .then((res) => {
+         
+          state.idChk = res.data
+        })
+        .catch((err) => {
+          console.log(err+"id검색 오류")
+        });
+      },
+
+
       searchName: function ({ commit }, name) {
         const API_URL = `http://localhost:9999/userapi/user/search`;
         axios({

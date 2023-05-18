@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssaffy.ssafit.util.JwtUtil;
 import com.ssafy.ssafit.model.dto.User;
 import com.ssafy.ssafit.model.service.UserService;
 
@@ -31,6 +32,8 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
+	@Autowired
+	private JwtUtil jwtUtil;
 	
 	@PostMapping("/login")
 	@ApiOperation(value="로그인", notes = "이름 반환으로 로그인 유저 확인")
@@ -58,7 +61,9 @@ public class UserController {
 	@GetMapping("/userDetail/{user_id}")
 	@ApiOperation(value="유저 상세보기", notes = "아이디로 유저 1명의 정보 상세조회,마이페이지에 쓰일 것.")
 	public ResponseEntity<?> userDetail(@PathVariable String user_id, @ApiIgnore HttpSession session) {
+		
 		User user = userService.userDetail(user_id);
+		
  //=> 로그인되어있는 유저 본인만 조회가 가능하도록 하기
 		if(((User)session.getAttribute("loginUser")).getUser_id().equals(user.getUser_id())) {
 			return new ResponseEntity<User>(user, HttpStatus.OK);
@@ -66,7 +71,26 @@ public class UserController {
 		return new ResponseEntity<Void>(HttpStatus.UNAUTHORIZED);
 		//return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
+	
+	
+	
+	
+	@GetMapping("/idCheck/{user_id}")
+	@ApiOperation(value="유저 상세보기", notes = "아이디로 유저 1명의 정보 상세조회,마이페이지에 쓰일 것.")
+	public ResponseEntity<?> idCheck(@PathVariable String user_id, @ApiIgnore HttpSession session) {
+		
+		User user = userService.userDetail(user_id);
+		
+		//=> 로그인되어있는 유저 본인만 조회가 가능하도록 하기
+		if(user != null){
+			return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+		}
+		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+		//return new ResponseEntity<User>(user, HttpStatus.OK);
+	}
 
+	
+	
 	
 	@PostMapping("/signUp")
 	@ApiOperation(value="회원가입", notes = "회원가입 (DB에 추가)")

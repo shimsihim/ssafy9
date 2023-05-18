@@ -19,8 +19,8 @@
 	
 	<!--  User DB추가 --> 
 	<insert id="insertUser" parameterType="User">
-			INSERT INTO user (user_id, user_pw, user_name, user_email, user_phone, user_nickname, user_height, user_weight)
-			VALUES (#{user_id}, #{user_pw}, #{user_name}, #{user_email}, #{user_phone}, #{user_nickname}, #{user_height}, #{user_weight})		
+			INSERT INTO user (user_id, user_pw, user_name, user_email, user_nickname, user_height, user_weight)
+			VALUES (#{user_id}, #{user_pw}, #{user_name}, #{user_email}, #{user_nickname}, #{user_height}, #{user_weight})		
 	</insert> 
 	
 	<!-- User DB수정 -->
