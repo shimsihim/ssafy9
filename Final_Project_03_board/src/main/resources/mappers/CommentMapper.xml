@@ -11,15 +11,23 @@
 	<insert id="registComment" parameterType="Comment">
 		insert into comment (comment_content,comment_writer_id,post_num,comment_created_at)
 		values
-		(#{comment_content},${comment_writer_id},${post_num},now())
+		(#{comment_content},#{comment_writer_id},#{post_num},now())
 	</insert>
 	
 	<update id="updateComment" parameterType="Comment">
-		UPDATE comment set comment_content = #{comment_content} ,comment_modified_at = now()  where comment_num =${comment_num} 
+		UPDATE comment 
+		set comment_content = #{comment_content} ,comment_modified_at = now()  
+		where comment_num =#{comment_num}
 	</update>
 	
 	<delete id="deleteComment" parameterType="int">
-		delete from comment where comment_num = ${comment_num}
+		delete from comment where comment_num = #{comment_num}
 	</delete>
+	
+	<select id="selectOne" parameterType="int" resultType="Comment">
+		select * from Comment where comment_num = #{comment_num}
+	</select>
+	
+	
 	
 </mapper>

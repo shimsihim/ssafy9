@@ -1,23 +1,31 @@
 package com.ssafy.ssafit.model.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 //import org.springframework.core.io.Resource;
 //import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ssafy.ssafit.model.dao.UserDao;
 import com.ssafy.ssafit.model.dto.User;
 
 @Service
 public class UserServiceImpl implements UserService {
+	
+	//private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	// resource 경로를 가져오기 위함(파일처리를 위해)
-//	/*
-//	 * @Autowired ResourceLoader resLoader;
-//	 */
+	//@Autowired
+	//ResourceLoader resLoader;
 	
 	private UserDao userDao;
 	
@@ -48,6 +56,7 @@ public class UserServiceImpl implements UserService {
 	//public int signUp(User user, MultipartFile file) throws IllegalStateException, IOException {
 		//fileHandling(user, file);
 	public int signUp(User user) {
+		//fileHandling(user, file);
 		return userDao.insertUser(user);
 		
 	}
@@ -74,6 +83,19 @@ public class UserServiceImpl implements UserService {
 		return userDao.selectAll();
 	}
 
+	
+//	private void fileHandling(User user, MultipartFile file) throws IOException {
+//		Resource res = resLoader.getResource("resources/upload");
+//		logger.debug("res: {}", res.getFile().getCanonicalPath());
+//		if (file != null && file.getSize() > 0) {
+//			user.setUser_imgFolder(res.getFile().getCanonicalPath());
+//			user.setUser_imgFile(System.currentTimeMillis() + "_" + file.getOriginalFilename());
+//
+//
+//			file.transferTo(new File(res.getFile().getCanonicalPath() + "/" + user.getUser_imgFile()));
+//		}
+//
+//	}
 //	private void fileHandling(User user, MultipartFile file) throws IOException {
 		// 파일을 저장할 폴더 지정
 //		Resource res = resLoader.getResource("resources/upload");

@@ -42,6 +42,12 @@ public class CommentServcieImpl implements CommentService{
 		
 	}
 
+	@Override
+	public Comment selectOne(int comment_num) {
+		// TODO Auto-generated method stub
+		return CommentDao.selectOne(comment_num);
+	}
+
 
 	
 	

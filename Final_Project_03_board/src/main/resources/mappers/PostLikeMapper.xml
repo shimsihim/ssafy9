@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.ssafit.model.dao.PostLikeDao">
+
+
+
+	<!-- 게시물 좋아요 확인 -->
+
+	<select id="checkPostLike" parameterType="PostLike" resultType="int">
+		select count(*) from postlike
+		where
+		postLike_user_id = #{postLike_user_id}
+		and
+		postLike_post_num = #{postLike_post_num};
+	</select>
+
+	<!-- 게시물 좋아요 추가 -->
+	<insert id="insertPostLike" parameterType="PostLike">
+		insert into postlike
+		(postLike_user_id,postLike_post_num)
+		values (#{postLike_user_id},#{postLike_post_num});
+	</insert>
+
+
+	<!-- 게시물 좋아요 삭제 -->
+	<delete id="deletePostLike" parameterType="PostLike">
+		DELETE FROM postlike
+		WHERE postLike_post_num = #{postLike_post_num}
+		and postLike_user_id = #{postLike_user_id}
+	</delete>
+	
+	
+	
+	<select id="countPostLike" parameterType="int" resultType="int">
+		select count(*) from postlike
+		where
+		postLike_post_num = #{postLike_post_num};
+	</select>
+
+
+</mapper>

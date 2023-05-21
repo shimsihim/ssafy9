@@ -19,6 +19,8 @@ public interface PostService {
 	void updatePost(Post post);
 
 	// 게시물 삭제
-	void deletePost(String post_num);
+	void deletePost(int post_num);
+
+	Post selectPost(int post_num);
 
 }

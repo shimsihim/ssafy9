@@ -4,9 +4,9 @@ import java.sql.Timestamp;
 
 public class Comment {
 	private int comment_num;
-	private int post_num;
-	private String comment_writer_id;
-	private String comment_content;
+	private int post_num; //직접 넣을 값
+	private String comment_writer_id;//직접 넣을 값
+	private String comment_content;//직접 넣을 값
 	private String user_nickname;
 	private Timestamp comment_created_at;
 	private Timestamp comment_modified_at;

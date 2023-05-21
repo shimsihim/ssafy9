@@ -25,6 +25,7 @@ export default {
   methods: {
     regist() {
       if (
+        this.post.post_board_id===""||
         this.post.post_title === "" ||
         this.post.post_content === ""
       ) {
@@ -32,13 +33,12 @@ export default {
         return;
       }
 
-      this.post.post_writer_id = this.loginUser.user_id
+      
 
       this.$store.dispatch("createPost", this.post);
     },
   },
   computed: {
-    ...mapState(["loginUser"]),
     ...mapState(["post"]),
   },
 };

@@ -33,7 +33,7 @@
       </table>
     </div>
     <div v-else>등록된 게시물이 없습니다.</div>
-    <button @click="registPost">등록하기</button>
+    <button v-if="loginToken"  @click="registPost">등록하기</button>
   </div>
 </template>
 
@@ -59,12 +59,14 @@ export default {
   },
   computed: {
     ...mapState(["posts"]),
+    ...mapState(["loginToken"]),
     ...mapGetters(["postCnt"]),
+
   },
   
   watch: {
       $route(to, form) {
-      if (to.path !== form.path) this.change(this.$route.params.board_id);
+      if (to.path !== form.path) this.change(this.$route.params.board_id);// 게시판 이동 시 마다 주소값을 확인하여 게시판 종류에 맞는 게시글 나타냄
     },
   },
   created() {

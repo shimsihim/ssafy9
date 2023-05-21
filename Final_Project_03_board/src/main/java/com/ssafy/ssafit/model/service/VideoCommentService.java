@@ -13,4 +13,6 @@ public interface VideoCommentService {
 	void updateVideoComment(VideoComment comment);
 	
 	void deleteVideoComment(int id);
+	
+	String getVideoCommentWriterId(int videocomment_num);
 }

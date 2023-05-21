@@ -3,7 +3,7 @@ package com.ssafy.ssafit.model.dto;
 public class Post {
 	
 	private int post_num;
-	private String post_board_id;
+	private int post_board_id;
 	private String post_writer_id;
 	private String post_writer_nickname;//DB X, dto에만 있음
 	private String post_title;
@@ -17,7 +17,7 @@ public class Post {
 		super();
 	}
 	
-	public Post(int post_num, String post_board_id, String post_writer_id, String post_writer_nickname,
+	public Post(int post_num, int post_board_id, String post_writer_id, String post_writer_nickname,
 			String post_title, String post_content, String post_img, int post_view_cnt, String post_created_at,
 			String post_modified_at) {
 		this.post_num = post_num;
@@ -37,10 +37,10 @@ public class Post {
 	public void setPost_num(int post_num) {
 		this.post_num = post_num;
 	}
-	public String getPost_board_id() {
+	public int getPost_board_id() {
 		return post_board_id;
 	}
-	public void setPost_board_id(String post_board_id) {
+	public void setPost_board_id(int post_board_id) {
 		this.post_board_id = post_board_id;
 	}
 	public String getPost_writer_id() {

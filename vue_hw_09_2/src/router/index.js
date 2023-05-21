@@ -10,10 +10,10 @@ import Board from "../views/Board.vue";
 import PostList from "@/components/board/PostList.vue";
 import PostRegist from "@/components/board/PostRegist.vue";
 import PostDetail from "@/components/board/PostDetail.vue";
-import Video from "../views/Video.vue";
-import VideoList from "@/components/video/VideoList.vue";
-import VideoDetail from "@/components/video/VideoDetail.vue";
-import VideoCommentRegist from "@/components/video/VideoCommentRegist.vue"
+import Youtube from "../views/Youtube.vue";
+import YoutubeVideo from "@/components/youtube/YoutubeVideo.vue";
+import YoutubeDetail from "@/components/youtube/YoutubeDetail.vue";
+import YoutubeCommentRegist from "@/components/youtube/YoutubeCommentRegist.vue"
 
 Vue.use(VueRouter);
 
@@ -25,23 +25,23 @@ const routes = [
   },
   {
     path: "/video",
-    name: "Video",
-    component: Video,
+    name: "Youtube",
+    component: Youtube,
     children:[
       {
-        path: ":video_part",
-        name: "VideoList",
-        component: VideoList,
+        path: "main",
+        name: "YoutubeVideo",
+        component: YoutubeVideo,
       },
       {
         path: "detail/:video_id",
-        name: "VideoDetail",
-        component: VideoDetail,
+        name: "YoutubeDetail",
+        component: YoutubeDetail,
       },
       {
         path: "comment/regist",
-        name: "VideoCommentRegist",
-        component: VideoCommentRegist,
+        name: "YoutubeCommentRegist",
+        component: YoutubeCommentRegist,
       },
     ]
   },

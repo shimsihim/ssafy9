@@ -1,7 +1,22 @@
 <template>
-  <div id="app" class="home-body">
+  <div id="app">
+    <div class="container-xxl bg-white p-0">
+        <!-- Spinner Start -->
+        <!-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div> -->
+        <!-- Spinner End -->
     <header-nav />
-    <router-view />
+    <div class="container-xxl position-relative p-0" id="home">
+            <div class="container-xxl bg-primary hero-header">
+                <div class="container">
+                  <router-view />
+                </div>
+            </div>
+          </div>
+  </div>
   </div>
 </template>
 <script>
@@ -14,47 +29,6 @@ export default {
 };
 </script>
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  list-style: none;
-}
-.text-center {
-  text-align: center;
-}
-.container {
-  margin: 0px 30px;
-}
 
-/*---------------------------------------
-  CUSTOM PROPERTIES ( VARIABLES )             
------------------------------------------*/
-:root {
-  --white-color:                  #ffffff;
-}
-
-/*---------------------------------------
-  CAROUSEL        
------------------------------------------*/
-body {
-  background-image : url('../public/img/templatemo-wave-banner.jpg'), linear-gradient(#348CD2, #FFFFFF);
-  background-repeat : no-repeat;
-  background-size: 110% 500px;
-  background-position: top;
-  padding-top: 40px;
-}
-
-/*---------------------------------------
-  SITE HEADER              
------------------------------------------*/
-.site-header {
-  height: 100px;
-  margin-bottom: 50px;
-}
-
-.site-header h2 {
-  color: var(--white-color);
-}
 
 </style>

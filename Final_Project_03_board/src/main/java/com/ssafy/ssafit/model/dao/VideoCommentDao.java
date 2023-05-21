@@ -12,6 +12,6 @@ public interface VideoCommentDao {
 	List<VideoComment> selectVideoComment(String videocomment_video_id);  // 게시물에 대한 전체 코멘트 가져오기
 	void updateVideoComment(VideoComment comment);        // 댓글 수정
 	void deleteVideoComment(int videocomment_num);        // 댓글 삭제
-	
+	String getVideoCommentWriterId(int videocomment_num);
 	
 }

@@ -13,4 +13,6 @@ List<Comment> selectComment(int post_num);
 	void updateComment(Comment comment);
 	
 	void deleteComment(int id);
+	
+	Comment selectOne(int comment_num);
 }

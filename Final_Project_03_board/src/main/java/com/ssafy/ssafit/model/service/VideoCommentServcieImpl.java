@@ -43,5 +43,11 @@ public class VideoCommentServcieImpl implements VideoCommentService {
 		// TODO Auto-generated method stub
 		videoCommentDao.deleteVideoComment(videocomment_num);
 	}
+	
+	@Override
+    public String getVideoCommentWriterId(int videocomment_num) {
+        
+        return videoCommentDao.getVideoCommentWriterId(videocomment_num);
+    }
 
 }

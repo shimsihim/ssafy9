@@ -1,55 +1,34 @@
 <template>
-  <header>
-    <b-navbar toggleable="lg" type="dark">
 
-      <b-navbar-brand><router-link to="/" class="logo">SSAFIT</router-link></b-navbar-brand>
 
-      <b-collapse id="nav-collapse" is-nav>
+            <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+                <a href="" class="navbar-brand p-0">
+                    <h1 class="mt-0"><router-link to="/" class="logo">FIT FRIENDS</router-link></h1>
 
-        <b-navbar-nav>
+                    <!-- <img src="img/logo.png" alt="Logo"> -->
+                </a>
+                <button class="navbar-toggler rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav mx-auto py-0">
+                        <a class="nav-item nav-link active"><router-link to="/">홈</router-link></a>
+                        <a class="nav-item nav-link"><router-link to="/video/main">영상보기</router-link></a>
+                        <a class="nav-item nav-link"><router-link to="/board/list/1">게시판</router-link></a>
+                        <a class="nav-item nav-link"><router-link to="/board/list/1">챌린지</router-link></a>
 
-     
-          <b-nav-item-dropdown right>
-            <template #button-content>
-              <span style="color: white;">게시판</span>
-            </template>
-            <b-dropdown-item class="bg-info"><router-link
-                :to="{ name: 'PostList', params: { board_id: 1 } }">공지사항</router-link></b-dropdown-item>
-            <b-dropdown-item class="bg-info"><router-link
-                :to="{ name: 'PostList', params: { board_id: 2 } }">자유게시판</router-link></b-dropdown-item>
-            <b-dropdown-item class="bg-info"><router-link
-                :to="{ name: 'PostList', params: { board_id: 3 } }">운동관련정보</router-link></b-dropdown-item>
-            <b-dropdown-item class="bg-info"><router-link
-                :to="{ name: 'PostList', params: { board_id: 4 } }">식단관련정보</router-link></b-dropdown-item>
-          </b-nav-item-dropdown>
 
-          <b-nav-item-dropdown right>
-            <template #button-content>
-              <router-link :to="{ name: 'VideoList', params: { video_part: 'all' } }">비디오</router-link>
-            </template>
-            <b-dropdown-item class="bg-info"><router-link to="/video/전신">전신</router-link></b-dropdown-item>
-            <b-dropdown-item class="bg-info"><router-link to="/video/상체">상체</router-link></b-dropdown-item>
-            <b-dropdown-item class="bg-info"><router-link to="/video/하체">하체</router-link></b-dropdown-item>
-            <b-dropdown-item class="bg-info"><router-link to="/video/복부">복부</router-link></b-dropdown-item>
-          </b-nav-item-dropdown>
+                        <a href="#contact" class="nav-item nav-link">Contact</a>
+                    </div>
 
-        </b-navbar-nav>
+                    <a v-if="getUser" class="nav-item nav-link"><router-link to="/mypage">마이페이지</router-link></a>
+                    <a v-else class="nav-item nav-link"><router-link :to="{ name: 'Regist' }">회원가입</router-link></a>
+                    
+                    <a v-if="getUser" class="btn btn-light rounded-pill py-2 px-2 ms-3 d-none d-lg-block" @click="logout"><router-link to="/">로그아웃</router-link></a>
+                    <a v-else class="btn btn-light rounded-pill py-2 px-2 ms-3 d-none d-lg-block"><router-link to="/login">로그인</router-link></a>
 
-        <b-navbar-nav v-if="getUser" class="ml-auto">
-          <b-nav-item><a href="#" @click="logout">로그아웃</a></b-nav-item>
-          <b-nav-item><router-link to="/mypage">마이페이지</router-link></b-nav-item>
-        </b-navbar-nav>
-
-        <b-navbar-nav v-else class="ml-auto">
-          <b-nav-item><router-link to="/login">로그인</router-link></b-nav-item>
-          <b-nav-item><router-link :to="{ name: 'Regist' }">회원가입</router-link></b-nav-item>
-        </b-navbar-nav>
-
-      </b-collapse>
-      <!-- 관리자용 사용자목록 -->
-      <!-- <router-link to="/user">사용자목록</router-link> -->
-    </b-navbar>
-  </header>
+                </div>
+            </nav>
 </template>
 <script>
 import { mapState } from "vuex";
@@ -62,9 +41,9 @@ export default {
     },
   },
   computed: {
-    ...mapState(["loginUser"]),
+    ...mapState(["loginToken"]),
     getUser() {
-      if (this.loginUser) {
+      if (this.loginToken) {
         return true;
       } else {
         return false;

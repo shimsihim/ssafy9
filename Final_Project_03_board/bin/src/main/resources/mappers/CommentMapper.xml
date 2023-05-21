@@ -11,7 +11,7 @@
 	<insert id="registComment" parameterType="Comment">
 		insert into comment (comment_content,comment_writer_id,post_num,comment_created_at)
 		values
-		(#{comment_content},${comment_writer_id},${post_num},now())
+		(#{comment_content},#{comment_writer_id},#{post_num},now())
 	</insert>
 	
 	<update id="updateComment" parameterType="Comment">

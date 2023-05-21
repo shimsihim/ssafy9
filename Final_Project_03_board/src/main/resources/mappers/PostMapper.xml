@@ -24,7 +24,7 @@
 	</insert>
 	
 	<!-- 게시글 삭제 -->
-	<delete id="deletePost" parameterType="string">
+	<delete id="deletePost" parameterType="int">
 		DELETE FROM post
 		WHERE post_num = #{post_num}
 	</delete>
@@ -32,7 +32,7 @@
 	<!-- 게시글 수정 -->
 	<update id="updatePost" parameterType="Post">
 		UPDATE post
-		SET post_title = #{post_title}, post_content=#{post_content}, post_modified_at = now()
+		SET post_title = #{post_title}, post_content=#{post_content}, post_modified_at = now(),post_board_id = #{post_board_id}
 		WHERE post_num=#{post_num}
 	</update>	
 	
@@ -42,7 +42,6 @@
 		SET post_view_cnt = post_view_cnt+1
 		WHERE post_num = #{post_num}
 	</update>
-	
 	
 	
 	

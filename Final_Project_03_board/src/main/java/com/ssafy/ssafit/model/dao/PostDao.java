@@ -16,7 +16,7 @@ public interface PostDao {
 	public void insertPost(Post post);
 
 	// 게시글 삭제
-	public void deletePost(String post_num);
+	public void deletePost(int post_num);
 
 	// 게시글 수정
 	public void updatePost(Post post);
