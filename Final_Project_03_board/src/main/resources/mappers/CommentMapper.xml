@@ -15,13 +15,11 @@
 	</insert>
 	
 	<update id="updateComment" parameterType="Comment">
-		UPDATE comment 
-		set comment_content = #{comment_content} ,comment_modified_at = now()  
-		where comment_num =#{comment_num}
+		UPDATE comment set comment_content = #{comment_content} ,comment_modified_at = now()  where comment_num =${comment_num} 
 	</update>
 	
 	<delete id="deleteComment" parameterType="int">
-		delete from comment where comment_num = #{comment_num}
+		delete from comment where comment_num = ${comment_num}
 	</delete>
 	
 	<select id="selectOne" parameterType="int" resultType="Comment">

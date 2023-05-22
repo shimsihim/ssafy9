@@ -16,6 +16,7 @@
                         <a class="nav-item nav-link"><router-link to="/video/main">영상보기</router-link></a>
                         <a class="nav-item nav-link"><router-link to="/board/list/1">게시판</router-link></a>
                         <a class="nav-item nav-link"><router-link to="/board/list/1">챌린지</router-link></a>
+                        <a class="nav-item nav-link"><router-link to="/record">임시 캘린더</router-link></a>
 
 
                         <a href="#contact" class="nav-item nav-link">Contact</a>

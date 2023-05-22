@@ -1,9 +1,9 @@
 package com.ssafy.ssafit.controller;
 
 import java.io.IOException;
+
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -65,7 +65,14 @@ public class CommentController {
 	@GetMapping("/delete/{comment_num}/{token}")
 	@ApiOperation(value="댓글 삭제", notes = "댓글 삭제하기 (DB삭제)")
 	public ResponseEntity<?> deleteComment(@PathVariable int comment_num,@PathVariable String token, @ApiIgnore HttpServletResponse resp) throws IOException {
-			
+		
+		System.out.println(token);
+		System.out.println(token);
+		System.out.println(token);
+		System.out.println(token);
+		System.out.println(comment_num);
+		System.out.println(comment_num);
+		
 		Comment comment = commentService.selectOne(comment_num);
 		if(!comment.getComment_writer_id().equals(jwtUtil.parse((token)))){
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
@@ -74,26 +81,16 @@ public class CommentController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	@PostMapping("/update")
+	@GetMapping("/update")
     @ApiOperation(value="댓글 수정", notes = "댓글 수정하기 (DB변경)")
-    public ResponseEntity<?> updateComment(@RequestBody Comment comment, @ApiIgnore HttpServletResponse resp) throws IOException {
-
-		commentService.updateComment(comment);
-		return new ResponseEntity<Void>(HttpStatus.OK);
-		
+    public ResponseEntity<?> updateComment(@RequestBody Comment comment, @ApiIgnore HttpServletResponse resp,String token) throws IOException {
+        
+        if(jwtUtil.parse(token)!=comment.getComment_writer_id())
+            return new ResponseEntity<Void>(HttpStatus.NOT_ACCEPTABLE);
+        
+        commentService.updateComment(comment);
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
-	
-	@PostMapping("/tokenCheck")
-	public ResponseEntity<?> tokenCheck(@RequestBody Map<String, Object> map) throws IOException {
-		String token = (String) map.get("token");
-		String comment_writer_id = (String) map.get("comment_writer_id");
-
-		if(!jwtUtil.parse(token).equals(comment_writer_id)) 
-            return new ResponseEntity<Void>(HttpStatus.I_AM_A_TEAPOT);
-		
-		return new ResponseEntity<Void>(HttpStatus.OK);
-	}
-	
 	
 	
 }

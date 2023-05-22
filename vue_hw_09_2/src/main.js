@@ -9,10 +9,13 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import '../public/scss/bootstrap.scss'
 
+
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
+import VModal from 'vue-js-modal'
+Vue.use(VModal, { dynamic: true })
 
 Vue.config.productionTip = false;
 

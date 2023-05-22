@@ -11,8 +11,7 @@ export default new Vuex.Store({
     searchUsers: [],
     user: {},
     loginUserId: "ssafy",
-    loginToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJzc2FmeSIsImV4cCI6MTY4NDYxMTA5Nn0.XyNFoZObukKYzhpMtdT0-_OipzF18MWjb6cTqG3ZSrk",
-    randomUser: null,
+    loginToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJzc2FmeSJ9.yNR-utf7kXExltWHQOq7lKsLRKroezlb2AdP9iAY1mk",
     posts: [],
     post: {},
     postComments: [],
@@ -21,6 +20,8 @@ export default new Vuex.Store({
     search_videos: [],
     idChk: false, // 아이디 중복검사 결과
     likeChk: false, // 게시물 좋아요 체크
+    Records : [], // 1일치 기록, 달력 클릭 시 리로드 됨
+    MonthRecords :[], // 1달치 기록으로 달력페이지 들어올 시 로딩 됨
   },
   getters: {
     userCnt: function (state) {
@@ -31,6 +32,9 @@ export default new Vuex.Store({
     },
     searchUserCnt: function (state) {
       return state.searchUsers.length > 0 ? state.searchUsers.length : null;
+    },
+    get_month_record: function (state) {
+      return state.MonthRecords;
     },
   },
   mutations: {
@@ -97,6 +101,12 @@ export default new Vuex.Store({
     ADD_VIDEO_COMMENT: function (state, videoComment) {
       state.videoComments.push(videoComment);
     },
+    GET_RECORD: function (state, records) {
+      state.Records = records;
+    },
+    SET_MONTH_RECORD: function (state, myallrecords) {
+      state.MonthRecords = myallrecords;
+    },
 
   },
   actions: {
@@ -132,8 +142,8 @@ export default new Vuex.Store({
         method: "GET",
       })
         .then((res) => {
-          console.log("user setting...");
-          console.log(res.data);
+          
+          
           commit("SET_USERS", res.data);
         })
         .catch((err) => {
@@ -142,7 +152,7 @@ export default new Vuex.Store({
     },
 
     updateUser: function ({ commit }, loginUser) {
-      console.log(commit);
+      
       const API_URL = `http://localhost:9999/ssafit/user/updateUserInfo`;
       axios({
         url: API_URL,
@@ -152,6 +162,7 @@ export default new Vuex.Store({
         .then(() => {
           alert("수정 완료!");
           router.push("/user");
+          commit
         })
         .catch((err) => {
           console.log(err);
@@ -215,7 +226,7 @@ export default new Vuex.Store({
     //로그인 기능으로 토큰와 LOGINID를 넣어줌
     setLoginUser: function ({ commit }, user) {
       const API_URL = `http://localhost:9999/ssafit/user/login`;
-      console.log("setLoginUser")
+      
       axios({
         url: API_URL,
         method: "POST",
@@ -252,7 +263,7 @@ export default new Vuex.Store({
     //ID중복 검사
     idDuplicateChk: async function ({ commit }, user_id) {
       const API_URL = `http://localhost:9999/ssafit/user/idCheck/${user_id}`;
-      console.log("중복검사")
+      
       await axios({
         url: API_URL,
         method: "GET",
@@ -285,7 +296,7 @@ export default new Vuex.Store({
         method: "GET",
       })
         .then((res) => {
-          console.log(res.data)
+        
           commit("SET_POSTS", res.data);
         })
         .catch((err) => {
@@ -297,7 +308,7 @@ export default new Vuex.Store({
     //게시글 등록 및 업데이트
     createPost: function ({ commit, state }, post) {
       let API_URL = `http://localhost:9999/ssafit/post/regist`;
-      console.log(post.post_num)
+     
       if (post.post_num) API_URL = `http://localhost:9999/ssafit/post/update`;
       return axios({
         url: API_URL,
@@ -343,7 +354,7 @@ export default new Vuex.Store({
       const token = state.loginToken;
       const API_URL = `http://localhost:9999/ssafit/post/delete/${post_num}/${token}`;
       const board_id = state.post.post_board_id;
-      console.log(state.post)
+      
       axios({
         method: 'DELETE',
         url: API_URL,
@@ -383,18 +394,14 @@ export default new Vuex.Store({
     },
 
     likeChkReverse: function ({ commit, state }, post_num) {
-      console.log("여기 좋야요 액션")
-      console.log("여기 좋야요 액션")
-      console.log("여기 좋야요 액션")
-      console.log("여기 좋야요 액션")
-      console.log("여기 좋야요 액션")
+    
       const token = state.loginToken
       let vari = "insert"
       if (state.likeChk)
         vari = "delete"
 
       let API_URL = `http://localhost:9999/ssafit/postLike/${vari}/${post_num}/${token}`;
-      
+
       axios({
         method: 'GET',
         url: API_URL,
@@ -425,8 +432,10 @@ export default new Vuex.Store({
     },
 
 
-    // 게시물의 댓글 등록 // 동작 확인 완료
+    // 게시물의 댓글 등록
     registPostComment: function ({ dispatch, state }, comment) {
+    
+      
       const API_URL = `http://localhost:9999/ssafit/postComment/regist`;
       axios({
         method: 'POST',
@@ -446,43 +455,35 @@ export default new Vuex.Store({
     },
 
 
-    //게시물의 댓글 수정 // 동작 확인 완료
-    updateComment : function ( {state}, postComment) {
-      const API_URL = `http://localhost:9999/ssafit/postComment/tokenCheck`;
-      axios({
-        method: 'POST',
-        url: API_URL,
-        data:{
-          token : state.loginToken,
-          comment_writer_id : postComment.comment_writer_id,
-        }
-      })
-      .then(() => {
-            axios({
-              method: 'POST',
-              url: `http://localhost:9999/ssafit/postComment/update`,
-              data:{
-                comment_num : postComment.comment_num,
-                comment_content : postComment.comment_content,
-                comment_writer_id : postComment.comment_writer_id,
-              }
-          }).then(()=> {
-            console.log("수정되었음.");
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-        })      
-      .catch((err) => {
-        console.log(err);
-      });
-    },
+    //게시물의 댓글 수정 // 수정 필요
+    // updateComment : function ( {state}, comment) {
+    //   console.log("액션 들어감")
+    //   console.log(state.loginToken)
+    //   const API_URL = `http://localhost:9999/ssafit/postComment/update`;
+    //   axios({
+    //     method: 'POST',
+    //     url: API_URL,
+    //     data:{
+    //       post_num : comment.post_num,
+    //       comment_content : comment.comment_content,
+    //       comment_writer_id : comment.comment_writer_id,
+    //       token : state.loginToken,
+    //     }
+    // })
+    //   .then(() => {
+    //     router.push(`/board/detail/${comment.post_num}`);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    // },
 
 
-    //게시물의 댓글 삭제 //동작 확인 완료
+    //게시물의 댓글 삭제
     deleteComment: function ({ dispatch, state }, comment_num) {
+     
       let token = state.loginToken
-      console.log(comment_num)
+    
       const API_URL = `http://localhost:9999/ssafit/postComment/delete/${comment_num}/${token}`;
       axios({
         method: 'GET',
@@ -516,20 +517,19 @@ export default new Vuex.Store({
         },
       })
         .then((res) => {
-          console.log(res);
+         
           commit("SET_SEARCH_VIDEOS", res.data.items)
         })
         .catch((err) => console.log(err));
     },
 
-
-      setVideo: function ({ commit, state }, video) {
-        for (let i = 0; i < state.search_videos.length; i++) {
-          if (state.search_videos[i] === video) {
-            commit("SET_VIDEO", video);
-          }
+    setVideo: function ({ commit, state }, video) {
+      for (let i = 0; i < state.search_videos.length; i++) {
+        if (state.search_videos[i] === video) {
+          commit("SET_VIDEO", video);
         }
-      },
+      }
+    },
 
     // ==================================
     // --VIDEOCOMMENT--
@@ -542,7 +542,7 @@ export default new Vuex.Store({
         url: API_URL,
       })
         .then((res) => {
-          console.log("여기 유튜브 댓글 다시 불러오기")
+         
           commit("SET_VIDEO_COMMENTS", res.data);
         })
         .catch((err) => {
@@ -586,6 +586,125 @@ export default new Vuex.Store({
         .then(() => {
           alert("삭제 완료!");
           this.$store.dispatch("setVideoComments", videocomment_video_id);
+
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // 캘린더, Record
+    getRecods: function ({ state, commit }, date) {
+      const token = state.loginToken
+      console.log(date)
+      console.log(date)
+      const API_URL = `http://localhost:9999/ssafit/record/${date}/${token}`;
+      axios({
+        method: 'GET',
+        url: API_URL,
+
+      })
+        .then((res) => {
+          console.log(res)
+          commit("GET_RECORD", res.data)
+
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    setMonthRecord: function ({ state, commit }) { // 1년치를 가져와야 할지?//그냥 내꺼 다가져오자
+      const token = state.loginToken
+      const API_URL = `http://localhost:9999/ssafit/record/${token}`;
+      console.log(123123)
+      axios({
+        method: 'GET',
+        url: API_URL,
+
+      })
+        .then((res) => {
+          console.log(res)
+          commit("SET_MONTH_RECORD", res.data)
+
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+
+    submitExRecord: function ({ state, dispatch },recordForm) { // 기록 보내기
+      
+      const API_URL = `http://localhost:9999/ssafit/record/submit`;
+      axios({
+        method: 'Post',
+        url: API_URL,
+        data:{
+          record_part: recordForm.part,
+          record_ex_memo : recordForm.memo,
+          record_ex_time : recordForm.time,
+          record_ex_date : recordForm.date,
+          token : state.loginToken
+        }
+      })
+        .then((res) => {
+          console.log(res)
+          dispatch("setMonthRecord");
+
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    updateExRecord: function ({ dispatch },recordForm) { // 기록 수정
+      const API_URL = `http://localhost:9999/ssafit/record/update`;
+      axios({
+        method: 'Post',
+        url: API_URL,
+        data:{
+          record_part: recordForm.record_part,
+          record_ex_memo : recordForm.record_ex_memo,
+          record_ex_time : recordForm.record_ex_time,
+          record_ex_date : recordForm.record_ex_date,
+          record_ex_num : recordForm.record_ex_num,
+        }
+      })
+        .then((res) => {
+          console.log(res)
+          dispatch("setMonthRecord");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    removeExRecord: function ({ dispatch },record_ex_num) { // 기록 삭제
+
+      const API_URL = `http://localhost:9999/ssafit/record/remove/${record_ex_num}`;
+      axios({
+        method: 'DELETE',
+        url: API_URL,
+       
+      })
+        .then((res) => {
+          console.log(res)
+          dispatch("setMonthRecord");
 
         })
         .catch((err) => {

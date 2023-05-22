@@ -25,7 +25,7 @@ public class JwtUtil {
         //토큰 생성
         
         return Jwts.builder().setHeaderParam("alg","HS256").setHeaderParam("typ","JWT")//헤더 완료
-                .claim("userId",data).setExpiration(new Date(System.currentTimeMillis()+100000000)) // 시간은 현재 임의로 정함
+                .claim("userId",data)/*.setExpiration(new Date(System.currentTimeMillis()+100000000))*/ // 시간은 현재 임의로 정함
                 .signWith(SignatureAlgorithm.HS256,"SSAFIT".getBytes("UTF-8"))//서명 완료
                 .compact();
     }
