@@ -7,6 +7,7 @@
         id="comment_content"
         v-model="comment_content"
         class="view"
+        
       />
       <textarea v-else
         id="comment_content"

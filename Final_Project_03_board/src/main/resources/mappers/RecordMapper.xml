@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.ssafit.model.dao.RecordDao">
+
+	<select id="getRecords" parameterType="Map"
+		resultType="Record_ex">
+		select * from record_ex where record_ex_date =
+		#{record_ex_date} and record_ex_user_id = #{record_ex_user_id}
+	</select>
+
+	<select id="getMyAllRecords" parameterType="String"
+		resultType="Record_ex">
+		select * from record_ex where record_ex_user_id =
+		#{record_ex_user_id}
+	</select>
+
+
+	<insert id="registRecode" parameterType="Record_ex">
+		insert into record_ex
+		(record_ex_date,record_ex_time,record_ex_memo,record_part,record_ex_user_id)
+		values(#{record_ex_date},#{record_ex_time},#{record_ex_memo},#{record_part},#{record_ex_user_id})
+	</insert>
+
+
+	<update id="updateRecord" parameterType="Record_ex">
+
+		update record_ex set
+		record_part=#{record_part},
+		record_ex_memo = #{record_ex_memo} ,
+		record_ex_time = #{record_ex_time},
+		record_ex_date = #{record_ex_date}
+		where
+		`record_ex_num` = #{record_ex_num};
+	</update>
+
+
+	<delete id="deleteRecord" parameterType="int">
+
+		delete from record_ex where record_ex_num = #{record_ex_num};
+		
+	</delete>
+
+</mapper>
